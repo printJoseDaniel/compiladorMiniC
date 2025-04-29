@@ -1,4 +1,5 @@
 %{
+#include "listaCodigo.h"
 #include "a_lex.tab.h"
 %}
 %option yylineno
@@ -29,7 +30,7 @@ else                                                            return ELSE;
 while                                                           return WHILE;
 print                                                           return PRINT;
 read                                                          	return READ;
-\"([^"\\]|{escape})*\"						return CADENA;
+\"([^"\n\\]|{escape})*\"					return STRING;
 
 	/* Despues de reconocer usar yylength*/
 ({letra}|{simbolo})({letra}|{digito}|{simbolo})*        { 

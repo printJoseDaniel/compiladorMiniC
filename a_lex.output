@@ -1,0 +1,1024 @@
+Estado 73 conflictos: 1 desplazamiento/reducción
+
+
+Gramática
+
+    0 $accept: programa $end
+
+    1 $@1: ε
+
+    2 programa: $@1 ID LPAREN RPAREN LKEY declaraciones lista_instrucciones RKEY
+
+    3 declaraciones: declaraciones VAR tipo lista_variables SEMICOLON
+    4              | declaraciones CONST tipo lista_ctes SEMICOLON
+    5              | ε
+
+    6 tipo: INT
+
+    7 lista_variables: ID
+    8                | lista_variables COMA ID
+
+    9 lista_ctes: ID IGUAL expresion
+   10           | lista_ctes COMA ID IGUAL expresion
+
+   11 lista_instrucciones: lista_instrucciones instruccion
+   12                    | ε
+
+   13 instruccion: ID IGUAL expresion SEMICOLON
+   14            | LKEY lista_instrucciones RKEY
+   15            | IF LPAREN expresion RPAREN instruccion ELSE instruccion
+   16            | IF LPAREN expresion RPAREN instruccion
+   17            | WHILE LPAREN expresion RPAREN instruccion
+   18            | PRINT LPAREN lista_impresion RPAREN SEMICOLON
+   19            | READ LPAREN lista_lectura RPAREN SEMICOLON
+   20            | error SEMICOLON
+
+   21 lista_impresion: item_impreso
+   22                | lista_impresion COMA item_impreso
+
+   23 item_impreso: expresion
+   24             | STRING
+
+   25 lista_lectura: ID
+   26              | lista_lectura COMA ID
+
+   27 expresion: expresion PLUSOP expresion
+   28          | expresion MINUSOP expresion
+   29          | expresion ASTERISCO expresion
+   30          | expresion BARRA expresion
+   31          | LPAREN expresion INTERROGACION expresion DOSPUNTOS expresion RPAREN
+   32          | UMENOS expresion
+   33          | LPAREN expresion RPAREN
+   34          | ID
+   35          | INTLITERAL
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256) 20
+    VAR (258) 3
+    CONST (259) 4
+    INT (260) 6
+    IF (261) 15 16
+    ELSE (262) 15
+    WHILE (263) 17
+    PRINT (264) 18
+    READ (265) 19
+    LPAREN (266) 2 15 16 17 18 19 31 33
+    RPAREN (267) 2 15 16 17 18 19 31 33
+    SEMICOLON (268) 3 4 13 18 19 20
+    COMA (269) 8 10 22 26
+    IGUAL (270) 9 10 13
+    INTERROGACION (271) 31
+    DOSPUNTOS (272) 31
+    LKEY (273) 2 14
+    RKEY (274) 2 14
+    ID <cad> (275) 2 7 8 9 10 13 25 26 34
+    INTLITERAL <cad> (276) 35
+    STRING <cad> (277) 24
+    PLUSOP (278) 27
+    MINUSOP (279) 28
+    ASTERISCO (280) 29
+    BARRA (281) 30
+    UMENOS (282) 32
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (28)
+        on left: 0
+    programa <codigo> (29)
+        on left: 2
+        on right: 0
+    $@1 (30)
+        on left: 1
+        on right: 2
+    declaraciones <codigo> (31)
+        on left: 3 4 5
+        on right: 2 3 4
+    tipo (32)
+        on left: 6
+        on right: 3 4
+    lista_variables <codigo> (33)
+        on left: 7 8
+        on right: 3 8
+    lista_ctes <codigo> (34)
+        on left: 9 10
+        on right: 4 10
+    lista_instrucciones <codigo> (35)
+        on left: 11 12
+        on right: 2 11 14
+    instruccion <codigo> (36)
+        on left: 13 14 15 16 17 18 19 20
+        on right: 11 15 16 17
+    lista_impresion (37)
+        on left: 21 22
+        on right: 18 22
+    item_impreso (38)
+        on left: 23 24
+        on right: 21 22
+    lista_lectura (39)
+        on left: 25 26
+        on right: 19 26
+    expresion <codigo> (40)
+        on left: 27 28 29 30 31 32 33 34 35
+        on right: 9 10 13 15 16 17 23 27 28 29 30 31 32 33
+
+
+Estado 0
+
+    0 $accept: • programa $end
+
+    $default  reduce usando la regla 1 ($@1)
+
+    programa  ir al estado 1
+    $@1       ir al estado 2
+
+
+Estado 1
+
+    0 $accept: programa • $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    2 programa: $@1 • ID LPAREN RPAREN LKEY declaraciones lista_instrucciones RKEY
+
+    ID  desplazar e ir al estado 4
+
+
+Estado 3
+
+    0 $accept: programa $end •
+
+    $default  aceptar
+
+
+Estado 4
+
+    2 programa: $@1 ID • LPAREN RPAREN LKEY declaraciones lista_instrucciones RKEY
+
+    LPAREN  desplazar e ir al estado 5
+
+
+Estado 5
+
+    2 programa: $@1 ID LPAREN • RPAREN LKEY declaraciones lista_instrucciones RKEY
+
+    RPAREN  desplazar e ir al estado 6
+
+
+Estado 6
+
+    2 programa: $@1 ID LPAREN RPAREN • LKEY declaraciones lista_instrucciones RKEY
+
+    LKEY  desplazar e ir al estado 7
+
+
+Estado 7
+
+    2 programa: $@1 ID LPAREN RPAREN LKEY • declaraciones lista_instrucciones RKEY
+
+    $default  reduce usando la regla 5 (declaraciones)
+
+    declaraciones  ir al estado 8
+
+
+Estado 8
+
+    2 programa: $@1 ID LPAREN RPAREN LKEY declaraciones • lista_instrucciones RKEY
+    3 declaraciones: declaraciones • VAR tipo lista_variables SEMICOLON
+    4              | declaraciones • CONST tipo lista_ctes SEMICOLON
+
+    VAR    desplazar e ir al estado 9
+    CONST  desplazar e ir al estado 10
+
+    $default  reduce usando la regla 12 (lista_instrucciones)
+
+    lista_instrucciones  ir al estado 11
+
+
+Estado 9
+
+    3 declaraciones: declaraciones VAR • tipo lista_variables SEMICOLON
+
+    INT  desplazar e ir al estado 12
+
+    tipo  ir al estado 13
+
+
+Estado 10
+
+    4 declaraciones: declaraciones CONST • tipo lista_ctes SEMICOLON
+
+    INT  desplazar e ir al estado 12
+
+    tipo  ir al estado 14
+
+
+Estado 11
+
+    2 programa: $@1 ID LPAREN RPAREN LKEY declaraciones lista_instrucciones • RKEY
+   11 lista_instrucciones: lista_instrucciones • instruccion
+
+    error  desplazar e ir al estado 15
+    IF     desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    PRINT  desplazar e ir al estado 18
+    READ   desplazar e ir al estado 19
+    LKEY   desplazar e ir al estado 20
+    RKEY   desplazar e ir al estado 21
+    ID     desplazar e ir al estado 22
+
+    instruccion  ir al estado 23
+
+
+Estado 12
+
+    6 tipo: INT •
+
+    $default  reduce usando la regla 6 (tipo)
+
+
+Estado 13
+
+    3 declaraciones: declaraciones VAR tipo • lista_variables SEMICOLON
+
+    ID  desplazar e ir al estado 24
+
+    lista_variables  ir al estado 25
+
+
+Estado 14
+
+    4 declaraciones: declaraciones CONST tipo • lista_ctes SEMICOLON
+
+    ID  desplazar e ir al estado 26
+
+    lista_ctes  ir al estado 27
+
+
+Estado 15
+
+   20 instruccion: error • SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 28
+
+
+Estado 16
+
+   15 instruccion: IF • LPAREN expresion RPAREN instruccion ELSE instruccion
+   16            | IF • LPAREN expresion RPAREN instruccion
+
+    LPAREN  desplazar e ir al estado 29
+
+
+Estado 17
+
+   17 instruccion: WHILE • LPAREN expresion RPAREN instruccion
+
+    LPAREN  desplazar e ir al estado 30
+
+
+Estado 18
+
+   18 instruccion: PRINT • LPAREN lista_impresion RPAREN SEMICOLON
+
+    LPAREN  desplazar e ir al estado 31
+
+
+Estado 19
+
+   19 instruccion: READ • LPAREN lista_lectura RPAREN SEMICOLON
+
+    LPAREN  desplazar e ir al estado 32
+
+
+Estado 20
+
+   14 instruccion: LKEY • lista_instrucciones RKEY
+
+    $default  reduce usando la regla 12 (lista_instrucciones)
+
+    lista_instrucciones  ir al estado 33
+
+
+Estado 21
+
+    2 programa: $@1 ID LPAREN RPAREN LKEY declaraciones lista_instrucciones RKEY •
+
+    $default  reduce usando la regla 2 (programa)
+
+
+Estado 22
+
+   13 instruccion: ID • IGUAL expresion SEMICOLON
+
+    IGUAL  desplazar e ir al estado 34
+
+
+Estado 23
+
+   11 lista_instrucciones: lista_instrucciones instruccion •
+
+    $default  reduce usando la regla 11 (lista_instrucciones)
+
+
+Estado 24
+
+    7 lista_variables: ID •
+
+    $default  reduce usando la regla 7 (lista_variables)
+
+
+Estado 25
+
+    3 declaraciones: declaraciones VAR tipo lista_variables • SEMICOLON
+    8 lista_variables: lista_variables • COMA ID
+
+    SEMICOLON  desplazar e ir al estado 35
+    COMA       desplazar e ir al estado 36
+
+
+Estado 26
+
+    9 lista_ctes: ID • IGUAL expresion
+
+    IGUAL  desplazar e ir al estado 37
+
+
+Estado 27
+
+    4 declaraciones: declaraciones CONST tipo lista_ctes • SEMICOLON
+   10 lista_ctes: lista_ctes • COMA ID IGUAL expresion
+
+    SEMICOLON  desplazar e ir al estado 38
+    COMA       desplazar e ir al estado 39
+
+
+Estado 28
+
+   20 instruccion: error SEMICOLON •
+
+    $default  reduce usando la regla 20 (instruccion)
+
+
+Estado 29
+
+   15 instruccion: IF LPAREN • expresion RPAREN instruccion ELSE instruccion
+   16            | IF LPAREN • expresion RPAREN instruccion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 44
+
+
+Estado 30
+
+   17 instruccion: WHILE LPAREN • expresion RPAREN instruccion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 45
+
+
+Estado 31
+
+   18 instruccion: PRINT LPAREN • lista_impresion RPAREN SEMICOLON
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    STRING      desplazar e ir al estado 46
+    UMENOS      desplazar e ir al estado 43
+
+    lista_impresion  ir al estado 47
+    item_impreso     ir al estado 48
+    expresion        ir al estado 49
+
+
+Estado 32
+
+   19 instruccion: READ LPAREN • lista_lectura RPAREN SEMICOLON
+
+    ID  desplazar e ir al estado 50
+
+    lista_lectura  ir al estado 51
+
+
+Estado 33
+
+   11 lista_instrucciones: lista_instrucciones • instruccion
+   14 instruccion: LKEY lista_instrucciones • RKEY
+
+    error  desplazar e ir al estado 15
+    IF     desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    PRINT  desplazar e ir al estado 18
+    READ   desplazar e ir al estado 19
+    LKEY   desplazar e ir al estado 20
+    RKEY   desplazar e ir al estado 52
+    ID     desplazar e ir al estado 22
+
+    instruccion  ir al estado 23
+
+
+Estado 34
+
+   13 instruccion: ID IGUAL • expresion SEMICOLON
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 53
+
+
+Estado 35
+
+    3 declaraciones: declaraciones VAR tipo lista_variables SEMICOLON •
+
+    $default  reduce usando la regla 3 (declaraciones)
+
+
+Estado 36
+
+    8 lista_variables: lista_variables COMA • ID
+
+    ID  desplazar e ir al estado 54
+
+
+Estado 37
+
+    9 lista_ctes: ID IGUAL • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 55
+
+
+Estado 38
+
+    4 declaraciones: declaraciones CONST tipo lista_ctes SEMICOLON •
+
+    $default  reduce usando la regla 4 (declaraciones)
+
+
+Estado 39
+
+   10 lista_ctes: lista_ctes COMA • ID IGUAL expresion
+
+    ID  desplazar e ir al estado 56
+
+
+Estado 40
+
+   31 expresion: LPAREN • expresion INTERROGACION expresion DOSPUNTOS expresion RPAREN
+   33          | LPAREN • expresion RPAREN
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 57
+
+
+Estado 41
+
+   34 expresion: ID •
+
+    $default  reduce usando la regla 34 (expresion)
+
+
+Estado 42
+
+   35 expresion: INTLITERAL •
+
+    $default  reduce usando la regla 35 (expresion)
+
+
+Estado 43
+
+   32 expresion: UMENOS • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 58
+
+
+Estado 44
+
+   15 instruccion: IF LPAREN expresion • RPAREN instruccion ELSE instruccion
+   16            | IF LPAREN expresion • RPAREN instruccion
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    RPAREN     desplazar e ir al estado 59
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+
+Estado 45
+
+   17 instruccion: WHILE LPAREN expresion • RPAREN instruccion
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    RPAREN     desplazar e ir al estado 64
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+
+Estado 46
+
+   24 item_impreso: STRING •
+
+    $default  reduce usando la regla 24 (item_impreso)
+
+
+Estado 47
+
+   18 instruccion: PRINT LPAREN lista_impresion • RPAREN SEMICOLON
+   22 lista_impresion: lista_impresion • COMA item_impreso
+
+    RPAREN  desplazar e ir al estado 65
+    COMA    desplazar e ir al estado 66
+
+
+Estado 48
+
+   21 lista_impresion: item_impreso •
+
+    $default  reduce usando la regla 21 (lista_impresion)
+
+
+Estado 49
+
+   23 item_impreso: expresion •
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+    $default  reduce usando la regla 23 (item_impreso)
+
+
+Estado 50
+
+   25 lista_lectura: ID •
+
+    $default  reduce usando la regla 25 (lista_lectura)
+
+
+Estado 51
+
+   19 instruccion: READ LPAREN lista_lectura • RPAREN SEMICOLON
+   26 lista_lectura: lista_lectura • COMA ID
+
+    RPAREN  desplazar e ir al estado 67
+    COMA    desplazar e ir al estado 68
+
+
+Estado 52
+
+   14 instruccion: LKEY lista_instrucciones RKEY •
+
+    $default  reduce usando la regla 14 (instruccion)
+
+
+Estado 53
+
+   13 instruccion: ID IGUAL expresion • SEMICOLON
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    SEMICOLON  desplazar e ir al estado 69
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+
+Estado 54
+
+    8 lista_variables: lista_variables COMA ID •
+
+    $default  reduce usando la regla 8 (lista_variables)
+
+
+Estado 55
+
+    9 lista_ctes: ID IGUAL expresion •
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+    $default  reduce usando la regla 9 (lista_ctes)
+
+
+Estado 56
+
+   10 lista_ctes: lista_ctes COMA ID • IGUAL expresion
+
+    IGUAL  desplazar e ir al estado 70
+
+
+Estado 57
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+   31          | LPAREN expresion • INTERROGACION expresion DOSPUNTOS expresion RPAREN
+   33          | LPAREN expresion • RPAREN
+
+    RPAREN         desplazar e ir al estado 71
+    INTERROGACION  desplazar e ir al estado 72
+    PLUSOP         desplazar e ir al estado 60
+    MINUSOP        desplazar e ir al estado 61
+    ASTERISCO      desplazar e ir al estado 62
+    BARRA          desplazar e ir al estado 63
+
+
+Estado 58
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+   32          | UMENOS expresion •
+
+    $default  reduce usando la regla 32 (expresion)
+
+
+Estado 59
+
+   15 instruccion: IF LPAREN expresion RPAREN • instruccion ELSE instruccion
+   16            | IF LPAREN expresion RPAREN • instruccion
+
+    error  desplazar e ir al estado 15
+    IF     desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    PRINT  desplazar e ir al estado 18
+    READ   desplazar e ir al estado 19
+    LKEY   desplazar e ir al estado 20
+    ID     desplazar e ir al estado 22
+
+    instruccion  ir al estado 73
+
+
+Estado 60
+
+   27 expresion: expresion PLUSOP • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 74
+
+
+Estado 61
+
+   28 expresion: expresion MINUSOP • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 75
+
+
+Estado 62
+
+   29 expresion: expresion ASTERISCO • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 76
+
+
+Estado 63
+
+   30 expresion: expresion BARRA • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 77
+
+
+Estado 64
+
+   17 instruccion: WHILE LPAREN expresion RPAREN • instruccion
+
+    error  desplazar e ir al estado 15
+    IF     desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    PRINT  desplazar e ir al estado 18
+    READ   desplazar e ir al estado 19
+    LKEY   desplazar e ir al estado 20
+    ID     desplazar e ir al estado 22
+
+    instruccion  ir al estado 78
+
+
+Estado 65
+
+   18 instruccion: PRINT LPAREN lista_impresion RPAREN • SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 79
+
+
+Estado 66
+
+   22 lista_impresion: lista_impresion COMA • item_impreso
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    STRING      desplazar e ir al estado 46
+    UMENOS      desplazar e ir al estado 43
+
+    item_impreso  ir al estado 80
+    expresion     ir al estado 49
+
+
+Estado 67
+
+   19 instruccion: READ LPAREN lista_lectura RPAREN • SEMICOLON
+
+    SEMICOLON  desplazar e ir al estado 81
+
+
+Estado 68
+
+   26 lista_lectura: lista_lectura COMA • ID
+
+    ID  desplazar e ir al estado 82
+
+
+Estado 69
+
+   13 instruccion: ID IGUAL expresion SEMICOLON •
+
+    $default  reduce usando la regla 13 (instruccion)
+
+
+Estado 70
+
+   10 lista_ctes: lista_ctes COMA ID IGUAL • expresion
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 83
+
+
+Estado 71
+
+   33 expresion: LPAREN expresion RPAREN •
+
+    $default  reduce usando la regla 33 (expresion)
+
+
+Estado 72
+
+   31 expresion: LPAREN expresion INTERROGACION • expresion DOSPUNTOS expresion RPAREN
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 84
+
+
+Estado 73
+
+   15 instruccion: IF LPAREN expresion RPAREN instruccion • ELSE instruccion
+   16            | IF LPAREN expresion RPAREN instruccion •
+
+    ELSE  desplazar e ir al estado 85
+
+    ELSE      [reduce usando la regla 16 (instruccion)]
+    $default  reduce usando la regla 16 (instruccion)
+
+
+Estado 74
+
+   27 expresion: expresion • PLUSOP expresion
+   27          | expresion PLUSOP expresion •
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+    $default  reduce usando la regla 27 (expresion)
+
+
+Estado 75
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   28          | expresion MINUSOP expresion •
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+    $default  reduce usando la regla 28 (expresion)
+
+
+Estado 76
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   29          | expresion ASTERISCO expresion •
+   30          | expresion • BARRA expresion
+
+    $default  reduce usando la regla 29 (expresion)
+
+
+Estado 77
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+   30          | expresion BARRA expresion •
+
+    $default  reduce usando la regla 30 (expresion)
+
+
+Estado 78
+
+   17 instruccion: WHILE LPAREN expresion RPAREN instruccion •
+
+    $default  reduce usando la regla 17 (instruccion)
+
+
+Estado 79
+
+   18 instruccion: PRINT LPAREN lista_impresion RPAREN SEMICOLON •
+
+    $default  reduce usando la regla 18 (instruccion)
+
+
+Estado 80
+
+   22 lista_impresion: lista_impresion COMA item_impreso •
+
+    $default  reduce usando la regla 22 (lista_impresion)
+
+
+Estado 81
+
+   19 instruccion: READ LPAREN lista_lectura RPAREN SEMICOLON •
+
+    $default  reduce usando la regla 19 (instruccion)
+
+
+Estado 82
+
+   26 lista_lectura: lista_lectura COMA ID •
+
+    $default  reduce usando la regla 26 (lista_lectura)
+
+
+Estado 83
+
+   10 lista_ctes: lista_ctes COMA ID IGUAL expresion •
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+    $default  reduce usando la regla 10 (lista_ctes)
+
+
+Estado 84
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+   31          | LPAREN expresion INTERROGACION expresion • DOSPUNTOS expresion RPAREN
+
+    DOSPUNTOS  desplazar e ir al estado 86
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+
+Estado 85
+
+   15 instruccion: IF LPAREN expresion RPAREN instruccion ELSE • instruccion
+
+    error  desplazar e ir al estado 15
+    IF     desplazar e ir al estado 16
+    WHILE  desplazar e ir al estado 17
+    PRINT  desplazar e ir al estado 18
+    READ   desplazar e ir al estado 19
+    LKEY   desplazar e ir al estado 20
+    ID     desplazar e ir al estado 22
+
+    instruccion  ir al estado 87
+
+
+Estado 86
+
+   31 expresion: LPAREN expresion INTERROGACION expresion DOSPUNTOS • expresion RPAREN
+
+    LPAREN      desplazar e ir al estado 40
+    ID          desplazar e ir al estado 41
+    INTLITERAL  desplazar e ir al estado 42
+    UMENOS      desplazar e ir al estado 43
+
+    expresion  ir al estado 88
+
+
+Estado 87
+
+   15 instruccion: IF LPAREN expresion RPAREN instruccion ELSE instruccion •
+
+    $default  reduce usando la regla 15 (instruccion)
+
+
+Estado 88
+
+   27 expresion: expresion • PLUSOP expresion
+   28          | expresion • MINUSOP expresion
+   29          | expresion • ASTERISCO expresion
+   30          | expresion • BARRA expresion
+   31          | LPAREN expresion INTERROGACION expresion DOSPUNTOS expresion • RPAREN
+
+    RPAREN     desplazar e ir al estado 89
+    PLUSOP     desplazar e ir al estado 60
+    MINUSOP    desplazar e ir al estado 61
+    ASTERISCO  desplazar e ir al estado 62
+    BARRA      desplazar e ir al estado 63
+
+
+Estado 89
+
+   31 expresion: LPAREN expresion INTERROGACION expresion DOSPUNTOS expresion RPAREN •
+
+    $default  reduce usando la regla 31 (expresion)
